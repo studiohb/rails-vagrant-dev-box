@@ -1,0 +1,7 @@
+---
+- name: Provisionning VM
+  hosts: all
+  roles:
+    - { role: packages, become: yes }
+    - { role: database }
+    - { role: rvm, become: vagrant }

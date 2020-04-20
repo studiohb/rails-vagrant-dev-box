@@ -1,0 +1,9 @@
+---
+- name: Import GPG keys from rvm.io
+  shell: "curl -sSL https://rvm.io/{{ item }} | gpg --batch --import -"
+  loop:
+    - mpapis.asc
+    - pkuczynski.asc
+
+- name: Install rvm
+  shell: curl -sSL https://get.rvm.io | bash -s stable

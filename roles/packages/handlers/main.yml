@@ -1,0 +1,12 @@
+---
+- name: start ntp
+  service:
+    name: ntp
+    state: started
+    enabled: yes
+
+- name: start postgresql
+  service:
+    name: postgresql
+    state: started
+    enabled: yes

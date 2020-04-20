@@ -1,0 +1,45 @@
+---
+- name: Add apt keys
+  apt_key:
+    url: "{{ item }}"
+  loop:
+    - "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    - "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+    - "https://dl.yarnpkg.com/debian/pubkey.gpg"
+
+- name: Add repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  loop:
+    - "deb https://deb.nodesource.com/node_13.x {{ ansible_distribution_release }} main"
+    - "deb https://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
+    - "deb https://dl.yarnpkg.com/debian stable main"
+
+- name: Install packages
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop:
+    - apt-transport-https
+    - build-essential
+    - ca-certificates
+    - curl
+    - git
+    - htop
+    - imagemagick
+    - ntp
+    - postgresql-11
+    - postgresql-client-11
+    - python3-pip
+    - python3-psycopg2
+    - software-properties-common
+    - tmux
+    - vim
+    - webp
+    - yarn
+    - zsh
+  notify:
+    - start ntp
+    - start postgresql
